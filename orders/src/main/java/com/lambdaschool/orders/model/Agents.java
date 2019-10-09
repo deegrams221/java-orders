@@ -11,9 +11,9 @@ import java.util.List;
 public class Agents
 {
     // fields - table columns
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long agentcode;
+    @Id // effects the field immediately after the annotation
+    @GeneratedValue(strategy = GenerationType.AUTO) // auto is best practice
+    private long agentcode; // all lowercase is best practice to make this database independent
 
     @Column(unique = true, nullable = false)
     private String agentname;
@@ -51,7 +51,7 @@ public class Agents
         this.phone = phone;
         this.country = country;
     }
-    
+
     // generate getters and setters - including id
 
     public long getAgentcode()

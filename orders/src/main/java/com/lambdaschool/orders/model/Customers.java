@@ -2,6 +2,8 @@ package com.lambdaschool.orders.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Customers has a foreign key to Agents (agentcode) this means:
 // Customers has a Many to One relationship to Agents and
@@ -23,15 +25,23 @@ public class Customers
     private String custcountry;
     private String grade;
     private double openingamt;
+    private double receiveamt;
     private double paymentamt;
     private double outstandingamt;
     private String phone;
 
-    @ManyToOne // ties menu and restaurant together
+    @ManyToOne // ties agents and customers together
     @JoinColumn(name = "agentcode", nullable = false)
     // ^ tells spring how to join them together
     @JsonIgnoreProperties("customers") // tells it not keep repeating
     private Agents agents;
+
+    // ties orders and customers together
+    @OneToMany(mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
+    private List<Orders> orders = new ArrayList<>();
 
     // default constructor
     public Customers()
@@ -46,6 +56,7 @@ public class Customers
                      String custcountry,
                      String grade,
                      double openingamt,
+                     double receiveamt,
                      double paymentamt,
                      double outstandingamt,
                      String phone,
@@ -57,6 +68,7 @@ public class Customers
         this.custcountry = custcountry;
         this.grade = grade;
         this.openingamt = openingamt;
+        this.receiveamt = receiveamt;
         this.paymentamt = paymentamt;
         this.outstandingamt = outstandingamt;
         this.phone = phone;
@@ -134,6 +146,16 @@ public class Customers
         this.openingamt = openingamt;
     }
 
+    public double getReceiveamt()
+    {
+        return receiveamt;
+    }
+
+    public void setReceiveamt(double receiveamt)
+    {
+        this.receiveamt = receiveamt;
+    }
+
     public double getPaymentamt()
     {
         return paymentamt;
@@ -172,5 +194,13 @@ public class Customers
     public void setAgents(Agents agents)
     {
         this.agents = agents;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }

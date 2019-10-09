@@ -34,9 +34,9 @@ public class AgentsServiceImpl implements AgentsService
 
     // find by id
     @Override
-    public Agents findById(long id)
+    public Agents findById(long agentcode)
     {
-        return agentrepos.findById(id).orElseThrow(() -> new EntityNotFoundException("Not Found " + id));
+        return agentrepos.findById(agentcode).orElseThrow(() -> new EntityNotFoundException("Not Found " + agentcode));
     }
 
     @Transactional
@@ -56,7 +56,7 @@ public class AgentsServiceImpl implements AgentsService
         {
             newAgents.getCustomers().add(new Customers(c.getCustname(),
                     c.getCustcity(), c.getWorkingarea(), c.getCustcountry(),
-                    c.getGrade(), c.getOpeningamt(), c.getPaymentamt(),
+                    c.getGrade(), c.getOpeningamt(), c.getReceiveamt(), c.getPaymentamt(),
                     c.getOutstandingamt(), c.getPhone(), newAgents));
         }
         return agentrepos.save(newAgents);
@@ -64,15 +64,15 @@ public class AgentsServiceImpl implements AgentsService
 
     // update by id
     @Override
-    public Agents update(Agents agents, long id)
+    public Agents update(Agents agents, long agentcode)
     {
         return agentrepos.save(agents);
     }
 
     // delete
     @Override
-    public void delete(long id)
+    public void delete(long agentcode)
     {
-        agentrepos.deleteById(id);
+        agentrepos.deleteById(agentcode);
     }
 }

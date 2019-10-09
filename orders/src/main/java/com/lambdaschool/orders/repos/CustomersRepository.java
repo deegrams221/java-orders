@@ -1,4 +1,9 @@
 package com.lambdaschool.orders.repos;
 
-public interface CustomersRepository {
+import com.lambdaschool.orders.model.Customers;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CustomersRepository extends CrudRepository<Customers, Long>
+{
+
 }

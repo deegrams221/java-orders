@@ -20,7 +20,7 @@ public class Orders
     @Column
     private double ordamount;
     private double adcanceamount;
-    private String orddescription
+    private String orddescription;
 
     @ManyToOne
     @JoinColumn(name = "custcode", nullable = false)
@@ -30,7 +30,7 @@ public class Orders
     // default constrictor
     public Orders()
     {
-        
+
     }
 
     // constrictors

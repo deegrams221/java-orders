@@ -3,6 +3,10 @@ package com.lambdaschool.orders.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
+// Customers has a foreign key to Agents (agentcode) this means:
+// Customers has a Many to One relationship to Agents and
+// Agents has a One to Many relationship to Customers
+
 @Entity
 @Table(name = "customers")
 public class Customers

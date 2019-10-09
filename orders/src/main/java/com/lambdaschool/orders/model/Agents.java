@@ -6,6 +6,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Customers has a foreign key to Agents (agentcode) this means:
+// Customers has a Many to One relationship to Agents and
+// Agents has a One to Many relationship to Customers
+
 @Entity
 @Table(name = "agents")
 public class Agents
@@ -23,8 +27,7 @@ public class Agents
     private String phone;
     private String country;
 
-    // Customers has a Many to One relationship to Agents and
-    // Agents has a One to Many relationship to Customers
+    // One to Many
     @OneToMany(mappedBy = "agents",
                 cascade = CascadeType.ALL)
     @JsonIgnoreProperties("agents")

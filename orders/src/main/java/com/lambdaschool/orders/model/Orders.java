@@ -16,8 +16,6 @@ public class Orders
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ordnum;
-
-    @Column
     private double ordamount;
     private double advanceamount;
     private String orddescription;
@@ -43,6 +41,9 @@ public class Orders
         this.advanceamount = advanceamount;
         this.orddescription = orddescription;
         this.customers = customers;
+    }
+
+    public Orders(double ordamount, double advanceamount, Customers c02, String sod) {
     }
 
     // getters and setters - including id

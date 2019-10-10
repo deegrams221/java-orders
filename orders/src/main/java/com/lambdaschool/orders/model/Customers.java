@@ -10,7 +10,7 @@ import java.util.List;
 // Agents has a One to Many relationship to Customers
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 public class Customers
 {
     @Id // all ids have this annotation throughout the app
@@ -24,10 +24,10 @@ public class Customers
     private String workingarea;
     private String custcountry;
     private String grade;
-    private double openingamt;
-    private double receiveamt;
-    private double paymentamt;
-    private double outstandingamt;
+    private Double openingamt;
+    private Double receiveamt;
+    private Double paymentamt;
+    private Double outstandingamt;
     private String phone;
 
     @ManyToOne // ties agents and customers together
@@ -55,10 +55,10 @@ public class Customers
                      String workingarea,
                      String custcountry,
                      String grade,
-                     double openingamt,
-                     double receiveamt,
-                     double paymentamt,
-                     double outstandingamt,
+                     Double openingamt,
+                     Double receiveamt,
+                     Double paymentamt,
+                     Double outstandingamt,
                      String phone,
                      Agents agents)
     {
@@ -136,7 +136,7 @@ public class Customers
         this.grade = grade;
     }
 
-    public double getOpeningamt()
+    public Double getOpeningamt()
     {
         return openingamt;
     }
@@ -146,7 +146,7 @@ public class Customers
         this.openingamt = openingamt;
     }
 
-    public double getReceiveamt()
+    public Double getReceiveamt()
     {
         return receiveamt;
     }
@@ -156,7 +156,7 @@ public class Customers
         this.receiveamt = receiveamt;
     }
 
-    public double getPaymentamt()
+    public Double getPaymentamt()
     {
         return paymentamt;
     }
@@ -166,7 +166,7 @@ public class Customers
         this.paymentamt = paymentamt;
     }
 
-    public double getOutstandingamt()
+    public Double getOutstandingamt()
     {
         return outstandingamt;
     }

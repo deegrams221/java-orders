@@ -21,15 +21,15 @@ public class CustomerController
 
     // https://localhost:2019/
     // GET /customer/order - Returns all customers with their orders
-    @GetMapping(value = "/customer/order", produces = {"application/json"})
-    public ResponseEntity<?> ListAllCustomersWithOrders()
+    @GetMapping(value = "/order", produces = {"application/json"})
+    public ResponseEntity<?> ListAllCustomers()
     {
         List<Customers> myCustomers = customerService.findAll();
         return new ResponseEntity<>(myCustomers, HttpStatus.OK);
     }
 
     // POST /customer/new - Adds a new customer including any new orders
-    @PostMapping(value = "/customer/new", produces = {"application/json"})
+    @PostMapping(value = "/new", produces = {"application/json"})
     public ResponseEntity<?> addNewCustomer(@Valid @RequestBody Customers newCustomer)
     {
         customerService.save(newCustomer);
@@ -38,7 +38,7 @@ public class CustomerController
 
     // PUT /customer/update/{custcode} - Updates the customer based off of custcode
     // Does not have to do anything with Orders!
-    @PutMapping(value = "/customer/update/{custcode}", produces = {"application/json"}, consumes = {"application/json"})
+    @PutMapping(value = "/update/{custcode}", produces = {"application/json"}, consumes = {"application/json"})
     public ResponseEntity<?> updateCustomer(@RequestBody Customers updateCustomer, @PathVariable long custcode)
     {
         customerService.update(updateCustomer, custcode);
@@ -47,7 +47,7 @@ public class CustomerController
 
     // DELETE /customer/delete/{custcode} - Deletes the customer based off of custcode
     //this should also delete the orders of that customer
-    @DeleteMapping(value = "/customer/delete/{custcode}", produces = {"application/json"})
+    @DeleteMapping(value = "/delete/{custcode}", produces = {"application/json"})
     public ResponseEntity<?> deleteCustomer(@PathVariable long custcode)
     {
         customerService.delete(custcode);

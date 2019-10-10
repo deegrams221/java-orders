@@ -19,7 +19,7 @@ public class Orders
 
     @Column
     private double ordamount;
-    private double adcanceamount;
+    private double advanceamount;
     private String orddescription;
 
     @ManyToOne
@@ -35,11 +35,12 @@ public class Orders
 
     // constrictors
     public Orders(double ordamount,
-                  double adcanceamount,
+                  double advanceamount,
                   String orddescription,
-                  Customers customers) {
+                  Customers customers)
+    {
         this.ordamount = ordamount;
-        this.adcanceamount = adcanceamount;
+        this.advanceamount = advanceamount;
         this.orddescription = orddescription;
         this.customers = customers;
     }
@@ -65,14 +66,14 @@ public class Orders
         this.ordamount = ordamount;
     }
 
-    public double getAdcanceamount()
+    public double getAdvanceamount()
     {
-        return adcanceamount;
+        return advanceamount;
     }
 
-    public void setAdcanceamount(double adcanceamount)
+    public void setAdvanceamount(double advanceamount)
     {
-        this.adcanceamount = adcanceamount;
+        this.advanceamount = advanceamount;
     }
 
     public String getOrddescription()

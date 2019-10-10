@@ -33,10 +33,11 @@ public class CustomerServiceImpl implements CustomerService
     @Override
     public Customers findById(long custcode)
     {
-        return custrepos.findById(custcode).orElseThrow(() -> new EntityNotFoundException("Not Found " + custcode));
+        return custrepos.findById(custcode).orElseThrow(() ->
+                new EntityNotFoundException("Not Found " + custcode));
     }
 
-    // spring framework transactional - all steps have to happen correctly otherwise nothing with work
+    // spring framework transactional - all steps have to happen correctly otherwise nothing will work
     @Transactional
     // save
     @Override
@@ -56,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService
 
         for(Orders o: customers.getOrders())
         {
-            newCustomer.getOrders().add(new Orders(o.getOrdamount(), o.getAdcanceamount(), o.getOrddescription(), newCustomer));
+            newCustomer.getOrders().add(new Orders(o.getOrdamount(), o.getAdvanceamount(), o.getOrddescription(), newCustomer));
         }
 
         return custrepos.save(newCustomer);
@@ -64,12 +65,13 @@ public class CustomerServiceImpl implements CustomerService
 
     // update by id
     @Override
-    public Customers update(Customers customer, long custcode) {
+    public Customers update(Customers customer, long custcode)
+    {
 
         return custrepos.save(customer);
     }
 
-    // delete
+    // delete by id
     @Override
     public void delete(long custcode)
     {

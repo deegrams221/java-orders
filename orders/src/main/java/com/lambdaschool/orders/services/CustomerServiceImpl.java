@@ -1,80 +1,73 @@
 package com.lambdaschool.orders.services;
 
-import com.lambdaschool.orders.model.Customers;
-import com.lambdaschool.orders.model.Orders;
-import com.lambdaschool.orders.repos.CustomersRepository;
+import com.lambdaschool.orders.models.Customer;
+import com.lambdaschool.orders.models.Order;
+import com.lambdaschool.orders.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-@Service(value = "customerservice")
+@Service(value = "customerService")
 public class CustomerServiceImpl implements CustomerService
 {
     @Autowired
-    // to access the customers repository
-    private CustomersRepository custrepos;
+    // to access the orders repository
+    private CustomerRepository custrepo;
 
-    // generate override methods from customers
+    // generate override methods from orders
     // find all
     @Override
-    public List<Customers> findAll()
+    public List<Customer> findAll()
     {
-        List<Customers> rtnList = new ArrayList<>();
-        custrepos.findAll().iterator().forEachRemaining(rtnList::add);
+        List<Customer> rtnList = new ArrayList<>();
+        custrepo.findAll().iterator().forEachRemaining(rtnList::add);
         return rtnList;
-    }
-
-    // find by id
-    @Override
-    public Customers findById(long custcode)
-    {
-        return custrepos.findById(custcode).orElseThrow(() ->
-                new EntityNotFoundException("Not Found " + custcode));
     }
 
     // spring framework transactional - all steps have to happen correctly otherwise nothing will work
     @Transactional
     // save
     @Override
-    public Customers save(Customers customers)
+    public Customer save(Customer customer)
     {
-        Customers newCustomer = new Customers();
-        newCustomer.setAgents(customers.getAgents());
-        newCustomer.setCustname(customers.getCustname());
-        newCustomer.setCustcity(customers.getCustcity());
-        newCustomer.setWorkingarea(customers.getWorkingarea());
-        newCustomer.setCustcountry(customers.getCustcountry());
-        newCustomer.setGrade(customers.getGrade());
-        newCustomer.setOpeningamt(customers.getOpeningamt());
-        newCustomer.setReceiveamt(customers.getReceiveamt());
-        newCustomer.setOutstandingamt(customers.getOutstandingamt());
-        newCustomer.setPhone(customers.getPhone());
+        Customer newCustomer = new Customer();
 
-        for(Orders o: customers.getOrders())
+        newCustomer.setCustname(customer.getCustname());
+        newCustomer.setCustcity(customer.getCustcity());
+        newCustomer.setWorkingarea(customer.getWorkingarea());
+        newCustomer.setCustcountry(customer.getCustcountry());
+        newCustomer.setGrade(customer.getGrade());
+        newCustomer.setOpeningamt(customer.getOpeningamt());
+        newCustomer.setReceiveamt(customer.getReceiveamt());
+        newCustomer.setPaymentamt(customer.getPaymentamt());
+        newCustomer.setOutstandingamt(customer.getOutstandingamt());
+        newCustomer.setPhone(customer.getPhone());
+        newCustomer.setAgent(customer.getAgent());
+
+        for (Order o : customer.getOrders())
         {
-            newCustomer.getOrders().add(new Orders(o.getOrdamount(), o.getAdvanceamount(), o.getOrddescription(), newCustomer));
+            newCustomer.getOrders().add(new Order(o.getOrdamount(),
+                    o.getAdvanceamount(), newCustomer, o.getOrddescription()));
         }
 
-        return custrepos.save(newCustomer);
+        return custrepo.save(newCustomer);
     }
 
     // update by id
     @Override
-    public Customers update(Customers customer, long custcode)
+    public Customer update(Customer customer, long id)
     {
-
-        return custrepos.save(customer);
+        return custrepo.save(customer);
     }
 
     // delete by id
     @Override
-    public void delete(long custcode)
+    public void delete(long id)
     {
-        custrepos.deleteById(custcode);
+        custrepo.deleteById(id);
     }
 }

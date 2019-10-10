@@ -1,4 +1,4 @@
-package com.lambdaschool.orders.model;
+package com.lambdaschool.orders.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
@@ -10,57 +10,56 @@ import java.util.List;
 // Agents has a One to Many relationship to Customers
 
 @Entity
-@Table(name = "customer")
-public class Customers
+@Table(name = "customers") // renamed
+public class Customer
 {
     @Id // all ids have this annotation throughout the app
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long custcode;
 
-    @Column(nullable = false) // custname has to have a name
+    @Column(unique = true, nullable = false) // do need it here!
     private String custname;
 
     private String custcity;
     private String workingarea;
     private String custcountry;
     private String grade;
-    private Double openingamt;
-    private Double receiveamt;
-    private Double paymentamt;
-    private Double outstandingamt;
+    private double openingamt;
+    private double receiveamt; // forgot this the one!
+    private double paymentamt;
+    private double outstandingamt;
     private String phone;
 
     @ManyToOne // ties agents and customers together
     @JoinColumn(name = "agentcode", nullable = false)
     // ^ tells spring how to join them together
     @JsonIgnoreProperties("customers") // tells it not keep repeating
-    private Agents agents;
+    private Agent agent; // renamed - no 's' on the end
 
     // ties orders and customers together
     @OneToMany(mappedBy = "customer",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            cascade=CascadeType.ALL)
     @JsonIgnoreProperties("customer")
-    private List<Orders> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     // default constructor
-    public Customers()
+    public Customer()
     {
 
     }
 
     // constructors
-    public Customers(String custname,
-                     String custcity,
-                     String workingarea,
-                     String custcountry,
-                     String grade,
-                     Double openingamt,
-                     Double receiveamt,
-                     Double paymentamt,
-                     Double outstandingamt,
-                     String phone,
-                     Agents agents)
+    public Customer(String custname,
+                    String custcity,
+                    String workingarea,
+                    String custcountry,
+                    String grade,
+                    double openingamt,
+                    double receiveamt,
+                    double paymentamt,
+                    double outstandingamt,
+                    String phone,
+                    Agent agent)
     {
         this.custname = custname;
         this.custcity = custcity;
@@ -72,10 +71,9 @@ public class Customers
         this.paymentamt = paymentamt;
         this.outstandingamt = outstandingamt;
         this.phone = phone;
-        this.agents = agents;
+        this.agent = agent;
     }
 
-    // generate getters and setters - including id
     public long getCustcode()
     {
         return custcode;
@@ -136,7 +134,7 @@ public class Customers
         this.grade = grade;
     }
 
-    public Double getOpeningamt()
+    public double getOpeningamt()
     {
         return openingamt;
     }
@@ -146,7 +144,7 @@ public class Customers
         this.openingamt = openingamt;
     }
 
-    public Double getReceiveamt()
+    public double getReceiveamt()
     {
         return receiveamt;
     }
@@ -156,7 +154,7 @@ public class Customers
         this.receiveamt = receiveamt;
     }
 
-    public Double getPaymentamt()
+    public double getPaymentamt()
     {
         return paymentamt;
     }
@@ -166,7 +164,7 @@ public class Customers
         this.paymentamt = paymentamt;
     }
 
-    public Double getOutstandingamt()
+    public double getOutstandingamt()
     {
         return outstandingamt;
     }
@@ -186,21 +184,23 @@ public class Customers
         this.phone = phone;
     }
 
-    public Agents getAgents()
+    public Agent getAgent()
     {
-        return agents;
+        return agent;
     }
 
-    public void setAgents(Agents agents)
+    public void setAgent(Agent agent)
     {
-        this.agents = agents;
+        this.agent = agent;
     }
 
-    public List<Orders> getOrders() {
+    public List<Order> getOrders()
+    {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(List<Order> orders)
+    {
         this.orders = orders;
     }
 }

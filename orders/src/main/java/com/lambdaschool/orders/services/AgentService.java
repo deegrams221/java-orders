@@ -1,22 +1,22 @@
 package com.lambdaschool.orders.services;
 
-import com.lambdaschool.orders.model.Agents;
+import com.lambdaschool.orders.models.Agent;
 
 import java.util.List;
 
-public interface AgentsService
+public interface AgentService
 {
     // find all
-    List<Agents>findAll();
+    List<Agent>findAll();
 
     // find by id
-    Agents findById(long id);
+    Agent findById(long id);
 
     // save
-    Agents save(Agents agents);
+    Agent save(Agent agents);
 
     // update by id
-    Agents update(Agents agents, long id);
+    Agent update(Agent agents, long id);
 
     // delete
     void delete(long id);

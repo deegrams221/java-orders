@@ -1,24 +1,22 @@
 package com.lambdaschool.orders.services;
 
-import com.lambdaschool.orders.model.Customers;
+import com.lambdaschool.orders.models.Customer;
+
 import java.util.List;
 
 public interface CustomerService
 {
     // find all
-    List<Customers> findAll();
+    List<Customer> findAll();
 
-    // find by id
-    Customers findById(long custcode);
+    // dont need find by id - was causing errors
 
     // save
-    Customers save(Customers customers);
+    Customer save(Customer customer);
 
     // update by id
-    Customers update(Customers customers, long custcode);
+    Customer update(Customer customer, long id);
 
     // delete
-    void delete(long custcode);
+    void delete(long id);
 }
-
-// this files should never change... can only add to it

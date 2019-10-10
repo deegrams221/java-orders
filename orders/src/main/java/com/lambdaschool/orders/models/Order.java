@@ -1,49 +1,46 @@
-package com.lambdaschool.orders.model;
+package com.lambdaschool.orders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
 
 // Orders has a foreign key to Customers (custcode)
 // Orders has a Many to One relationship to Customers and
 // Customers has a One to Many relationship to Orders
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-
 @Entity
 @Table(name = "orders")
-public class Orders
+public class Order
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ordnum;
     private double ordamount;
     private double advanceamount;
-    private String orddescription;
 
     @ManyToOne
-    @JoinColumn(name = "custcode", nullable = false)
+    @JoinColumn(name = "custcode",
+            nullable = false)
     @JsonIgnoreProperties("orders")
-    private Customers customers;
+    private Customer customer;
+
+    private String orddescription; // had to reorder for the project to run
 
     // default constrictor
-    public Orders()
+    public Order()
     {
 
     }
 
     // constrictors
-    public Orders(double ordamount,
-                  double advanceamount,
-                  String orddescription,
-                  Customers customers)
+    public Order(double ordamount,
+                 double advanceamount,
+                 Customer customer,
+                 String orddescription)
     {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
+        this.customer = customer;
         this.orddescription = orddescription;
-        this.customers = customers;
-    }
-
-    public Orders(double ordamount, double advanceamount, Customers c02, String sod) {
     }
 
     // getters and setters - including id
@@ -77,6 +74,16 @@ public class Orders
         this.advanceamount = advanceamount;
     }
 
+    public Customer getCustomer()
+    {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer)
+    {
+        this.customer = customer;
+    }
+
     public String getOrddescription()
     {
         return orddescription;
@@ -85,15 +92,5 @@ public class Orders
     public void setOrddescription(String orddescription)
     {
         this.orddescription = orddescription;
-    }
-
-    public Customers getCustomers()
-    {
-        return customers;
-    }
-
-    public void setCustomers(Customers customers)
-    {
-        this.customers = customers;
     }
 }

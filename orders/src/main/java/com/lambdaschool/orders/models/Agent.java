@@ -1,7 +1,6 @@
-package com.lambdaschool.orders.model;
+package com.lambdaschool.orders.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +11,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "agents")
-public class Agents
+public class Agent
 {
     // fields - table columns
     @Id // effects the field immediately after the annotation
     @GeneratedValue(strategy = GenerationType.AUTO) // auto is best practice
     private long agentcode; // all lowercase is best practice to make this database independent
 
-    @Column(unique = true, nullable = false)
+    // don't need '@Column(unique = true, nullable = false)' here
     private String agentname;
 
     private String workingarea;
@@ -28,25 +27,23 @@ public class Agents
     private String country;
 
     // One to Many
-    @OneToMany(mappedBy = "agents",
-                cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("agents")
-    private List<Customers> customers = new ArrayList<>();
+    @OneToMany(mappedBy = "agent",
+            cascade=CascadeType.ALL)
+    @JsonIgnoreProperties("agent")
+    private List<Customer> customers = new ArrayList<>();
 
     // default constructor
-
-    public Agents()
+    public Agent()
     {
 
     }
 
     // constructor - all but list
-
-    public Agents(String agentname,
-                  String workingarea,
-                  double commission,
-                  String phone,
-                  String country)
+    public Agent(String agentname,
+                 String workingarea,
+                 double commission,
+                 String phone,
+                 String country)
     {
         this.agentname = agentname;
         this.workingarea = workingarea;
@@ -56,7 +53,6 @@ public class Agents
     }
 
     // generate getters and setters - including id
-
     public long getAgentcode()
     {
         return agentcode;
@@ -117,12 +113,12 @@ public class Agents
         this.country = country;
     }
 
-    public List<Customers> getCustomers()
+    public List<Customer> getCustomers()
     {
         return customers;
     }
 
-    public void setCustomers(List<Customers> customers)
+    public void setCustomers(List<Customer> customers)
     {
         this.customers = customers;
     }

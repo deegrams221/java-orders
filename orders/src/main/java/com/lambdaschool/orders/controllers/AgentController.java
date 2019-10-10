@@ -1,7 +1,7 @@
 package com.lambdaschool.orders.controllers;
 
-import com.lambdaschool.orders.model.Agents;
-import com.lambdaschool.orders.services.AgentsService;
+import com.lambdaschool.orders.models.Agent;
+import com.lambdaschool.orders.services.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/agents")
-public class AgentsController
+public class AgentController
 {
     // inject services into this class
     @Autowired
-    private AgentsService agentsService;
+    private AgentService agentsService;
 
     //http://localhost:2019/agent/{agentcode}
     @DeleteMapping(value = "/agent/{agentcode}", produces = {"application/json"})
     public ResponseEntity<?> deleteAgent(@PathVariable long agentcode) {
-        Agents currentAgent = new Agents();
+        Agent currentAgent = new Agent();
 
         agentsService.delete(agentcode);
         return new ResponseEntity<>("Delete Successful", HttpStatus.OK);
